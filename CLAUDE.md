@@ -40,7 +40,15 @@ To keep this PoC focused, the following are explicitly **not** part of it:
 
 If a request or idea falls into one of these categories, it should be treated as a future enhancement, not part of this PoC's deliverable.
 
-## 6. Key Terms (Plain-English Glossary)
+## 6. Technical Stack
+
+- **Language: Python** — the whole application is written in Python.
+- **Database: SQLite** — a lightweight, file-based database. Unlike Postgres or MySQL, it doesn't need a separate server running; it just saves everything into a single file on disk. This fits well with the "no Postgres" scope boundary and keeps the PoC simple to run.
+- **Testing: pytest** — the standard Python library for writing and running automated tests. Tests should be added alongside features to check that expenses are stored correctly, amounts are normalised to INR minor units correctly, and an insight is generated per submission.
+
+**Why this matters:** These choices keep the PoC easy to set up (no external services to install or configure) and easy to verify (automated tests confirm the success criteria in [Section 4](#4-success-criteria) actually hold, not just that the code runs).
+
+## 7. Key Terms (Plain-English Glossary)
 
 - **API** — a way for software to talk to other software, without a visual interface.
 - **CLI (Command Line Interface)** — a text-based way of running the program, by typing commands into a terminal.
@@ -48,10 +56,13 @@ If a request or idea falls into one of these categories, it should be treated as
 - **Minor units** — the smallest unit of a currency, used to avoid decimal rounding errors. For INR, the minor unit is paise (1 rupee = 100 paise).
 - **Insight** — a short, AI-generated observation or comment about a submitted expense.
 - **PoC (Proof of Concept)** — a small, working version built to test whether an idea works, not a finished product.
+- **SQLite** — a lightweight database that stores everything in a single file, with no separate server to run.
+- **pytest** — a Python tool that automatically runs a set of checks ("tests") against the code to confirm it behaves as expected.
 
-## 7. Working Notes for Claude Code
+## 8. Working Notes for Claude Code
 
 - Keep changes scoped to the brief above. Don't add UI, email, Postgres, or multi-currency handling unless the user explicitly asks to expand scope.
 - Since the primary (and only) interface is the CLI, prioritise clear, readable CLI output when implementing or changing features — that output is how success is verified.
+- Build the application in **Python**, store data in **SQLite**, and write automated tests with **pytest** for each feature (see [Section 6](#6-technical-stack)).
 - The user who owns this project is **not a technical person**. When explaining code, architecture, or decisions back to them, use plain language and avoid unexplained jargon.
 - When in doubt about a design decision not covered by the brief, ask rather than assume — this is a PoC with a specific, narrow success bar.
